@@ -1,14 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-
-export default async function handler(req, res) {
-    if (req.method === 'POST') {
-        const feedback = req.body;
-
-        // Save feedback to a JSON file (for local testing)
-        const filePath = path.join(process.cwd(), 'feedback.json');
-        const fileData = fs.existsSync(filePath) ? JSON.parse(fs.readFileSync(filePath)) : [];
-        fileData.push(feedback);
+ggileData.push(feedback);
 
         fs.writeFileSync(filePath, JSON.stringify(fileData, null, 2));
 
