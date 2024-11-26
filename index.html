@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Feedback Tracker</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header section -->
+        <header>
+            <h1>Digital Feedback Tracker</h1>
+            <div class="menu">
+                <!-- Button to scroll to resolved feedback section -->
+                <button onclick="document.getElementById('resolvedFeedback').scrollIntoView()">See Resolved Feedback</button>
+            </div>
+        </header>
+
+        <!-- Feedback Submission Form -->
+        <section class="feedback-form">
+            <h2>Submit Your Feedback</h2>
+            <form id="feedbackForm">
+                <!-- Dropdown to select feedback category -->
+                <label for="category">Category:</label>
+                <select id="category" name="category">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="facilities">Facilities</option>
+                    <option value="academics">Academics</option>
+                    <option value="dining">Dining</option>
+                    <option value="Student Life">Student Life</option>
+                </select>
+
+                <!-- Textarea for feedback details -->
+                <label for="feedback">Your Feedback:</label>
+                <textarea id="feedback" name="feedback" rows="4" placeholder="Enter your feedback here..."></textarea>
+
+                <!-- Submit button -->
+                <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+            </form>
+        </section>
+
+        <!-- Current Feedback Table -->
+        <section class="status-dashboard">
+            <h2>Current Feedback</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feedback</th>
+                        <th>Category</th>
+                        <th>Status</th>
+                        <th>Last Update</th>
+                    </tr>
+                </thead>
+                <tbody id="feedbackList">
+                    <!-- Feedback items will be dynamically populated here -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Resolved Feedback Section -->
+        <section id="resolvedFeedback">
+            <h2>Resolved Feedback</h2>
+            <ul>
+                <!-- Example resolved feedback items -->
+                <li>Added 20 new quiet study spaces in the library.</li>
+                <li>Updated HVAC system in classrooms for better temperature control.</li>
+                <li>Introduced healthier dining options in the cafeteria.</li>
+                <li>More or larger prayer area for Muslim students</li>
+            </ul>
+        </section>
+    </div>
+
+    <!-- Link to the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
