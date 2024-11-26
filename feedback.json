@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "id": "1",
+        "feedback": "Add more quiet study spaces.",
+        "category": "Facilities",
+        "email": "user1@example.com",
+        "status": "Submitted",
+        "timestamp": "2024-11-26T12:34:56",
+        "admin_note": null
+    },
+    {
+        "id": "2",
+        "feedback": "Improve Wi-Fi coverage in classrooms.",
+        "category": "Technology",
+        "email": "user2@example.com",
+        "status": "In Progress",
+        "timestamp": "2024-11-25T15:00:00",
+        "admin_note": "IT team working on upgrades."
+    }
+]

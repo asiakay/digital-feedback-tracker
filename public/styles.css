@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f8f9fa;
+    padding-top: 80px; 
 }
 
 /* Main container styling */
@@ -118,6 +119,8 @@ tr:hover {
     }
 }
 
+
+/* rename to header */
 /* Footer Styling */
 .footer {
     text-align: center; /* Center the text */
@@ -130,8 +133,8 @@ tr:hover {
    /* Light gray background */
     font-size: 14px;    /* Adjust text size */
     color: #333;        /* Text color */
-    position: fixed;    /* Fix footer to the bottom */
-    bottom: 0;          /* Align to bottom of the page */
+    position: fixed;    /* Fix footer to the top */
+    top: 0;          /* Align to bottom of the page */
     width: 100%;        /* Ensure the footer spans the full width */
     box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); /* Subtle top shadow */
 }
@@ -151,3 +154,31 @@ list-style: none }
 display: list-item
 }
 
+
+
+/* GitHub Diagonal Banner (Adjusted to align with top and right edges) */
+.github-banner {
+    position: absolute;
+    top: 100; /* Align to top edge */
+    right: 0; /* Align to right edge */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    font-size: 14px; /* Adjust text size */
+    padding: 10px 50px; /* Adjust padding for banner size */
+    z-index: 10; /* Ensure it appears above content */
+    transform: rotate(45deg) translate(35%, -35%); /* Align edges with top and right */
+    transform-origin: top right; /* Keep rotation consistent */
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+    text-align: center; /* Center-align text */
+}
+
+/* GitHub Banner Link Styling */
+.github-banner a {
+    color: white; /* White text color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make text bold */
+}
+
+.github-banner a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
