@@ -1,6 +1,10 @@
 import fs from "fs"; // File system module to interact with files
 import path from "path"; // Path module to resolve file paths
 
+
+
+
+
 /**
  * Handles submitting new feedback to the `feedback.json` file.
  */
@@ -41,3 +45,14 @@ export default function handler(req, res) {
         res.status(405).end(`Method ${req.method} Not Allowed`); // Handle invalid methods
     }
 }
+
+function readJSONFile() {
+    try {
+        const data = fs.readFileSync(feedbackFilePath, "utf8");
+        return JSON.parse(data);
+    } catch (error) {
+        console.error("Error reading file:", error);
+        return []; // Return an empty array if the file doesn't exist or is invalid
+    }
+}
+

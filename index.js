@@ -17,7 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 // Define file path for feedback storage
-const feedbackFilePath = path.join(__dirname, "feedback.json");
+const feedbackFilePath = path.join(process.cwd(), "data", "feedback.json");
 
 /**
  * Helper function to read feedback data from the JSON file
