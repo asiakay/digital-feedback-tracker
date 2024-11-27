@@ -46,7 +46,7 @@ export default function handler(req, res) {
     }
 }
 
-function readJSONFile() {
+/*function readJSONFile() {
     try {
         const data = fs.readFileSync(feedbackFilePath, "utf8");
         return JSON.parse(data);
@@ -56,3 +56,4 @@ function readJSONFile() {
     }
 }
 
+*/
