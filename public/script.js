@@ -1,157 +1,65 @@
-const axios = require("axios");
+import axios from "https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js";
 
+// Base URL for API endpoints
+const API_BASE_URL = "/api";
 
-    /**
-     * Function to render the feedback table
-     * This function dynamically updates the feedback table based on `feedbackData`.
-     */
-  async function renderFeedback() {
-        const feedbackList = document.getElementById("feedbackList"); // Target the table body
-        feedbackList.innerHTML = ""; // Clear any existing rows in the table
+// Function to render the feedback table
+async function renderFeedback() {
+    const feedbackList = document.getElementById("feedbackList");
+    feedbackList.innerHTML = "<tr><td colspan='4'>Loading...</td></tr>";
 
-try {
-    const response = await axios.get("/api/get-feedback"); // Fetching feedback data from the backend server (index.js)
+    try {
+        const response = await axios.get(`${API_BASE_URL}/get-feedback`);
+        const feedbackData = response.data;
 
-const feedbackData = response.data; // Extracting the feedback data from the response
-
-    //for each entry submitted feedback data, Loop through the feedback data and create table rows
-
-    feedbackData.forEach((item) => {
-        const row = document.createElement("tr"); // Create a new row 
-row.innerHTML = `
-<td>${item.text}</td>
-<td><!-- Feedback content -->
-<td>${item.category}</td><!-- Feedback category -->
-
-<td class="status-${item.status.toLowerCase().replace(" ", "-")}">${item.status}</td><!-- Feedback status -->
-<td>${item.lastUpdate}</td><!-- Last update date--> 
-`;
-
-feedbackList.appendChild(row); // Append the row to the table body
-
-    });
-}
-      catch (error) {
-          console.error("Error fetching feedback data:", error); // Logging the errors to console 
-
-alert( "Failed to load feedback. Please try again later."); // Notifying the user that feedback could not be loaded
-      }
-      }
-        
-// Reset form fields
-/* document.getElementById("feedbackForm").reset(); */
-
-// Attach the submit feedback function to the form
-
-document.getElementById("feedbackForm").addEventListener("submit", (e) => {
-    e.preventDefault(); // Preventing the default form submission behavior
-    submitFeedback(); // Triggering the feedback submission function whenuser submits form 
-});
-feedbackData.forEach((item) => {
-            const row = document.createElement("tr"); // Create a new table row
+        feedbackList.innerHTML = ""; // Clear the loading message
+        feedbackData.forEach((item) => {
+            const row = document.createElement("tr");
             row.innerHTML = `
-            
-                <td>${item.text}</td> <!-- Feedback content -->
-                <td>${item.category}</td> <!-- Category of feedback -->
-                <td class="status-${item.status.toLowerCase().replace(" ", "-")}">${item.status}</td> <!-- Status with color-coded class -->
-                <td>${item.lastUpdate}</td> <!-- Last update date -->
+                <td>${item.feedback}</td>
+                <td>${item.category}</td>
+                <td class="status-${item.status.toLowerCase().replace(" ", "-")}">${item.status}</td>
+                <td>${item.lastUpdate}</td>
             `;
-            feedbackList.appendChild(row); // Append the row to the table body
+            feedbackList.appendChild(row);
         });
+    } catch (error) {
+        console.error("Error fetching feedback data:", error);
+        alert("Failed to load feedback. Please try again later.");
     }
-catch (error) {
-    console.error("Error fetching feedback data:", error); // Logging the errors to console
-    alert("Failed to load feedback. Please try again later."); // Notifying the user that feedback could not be loaded
 }
 
+// Function to handle feedback submission
+async function submitFeedback() {
+    const category = document.getElementById("category").value;
+    const feedbackText = document.getElementById("feedback").value;
 
-    /**
-     * Function to handle feedback submission
-     * This function collects data from the form, validates it, and adds it to `feedbackData`.
-     */
-   async function submitFeedback() {
-        // Retrieve the values from the form inputs
-        const category = document.getElementById("category").value; // Category dropdown
-        const feedbackText = document.getElementById("feedback").value; // Feedback textarea
+    if (feedbackText.trim() === "" || category.trim() === "") {
+        alert("Please fill out all fields.");
+        return;
+    }
 
-        // Check if the feedback or category fields are empty
-        if (feedbackText.trim() === "" || category.trim() === "") {
-            alert("Please fill out all fields."); // Alert the user to fill out the form
-            return; // Stop execution if validation fails
-        }
+    const newFeedback = {
+        feedback: feedbackText,
+        category: category,
+    };
 
-        // Create a new feedback object
-        const newFeedback = {
-            text: feedbackText, // Feedback content
-            category: category, // Selected category
-        };
-       
-       try {
-           await axios.post("/api/submit-feedback", newFeedback);
-           // submit feedback via the middleware API
+    try {
+        await axios.post(`${API_BASE_URL}/submit-feedback`, newFeedback);
+        alert("Your feedback has been submitted!");
+        document.getElementById("feedbackForm").reset();
+        renderFeedback(); // Refresh the feedback table
+    } catch (error) {
+        console.error("Error submitting feedback:", error);
+        alert("Failed to submit feedback. Please try again later.");
+    }
+}
 
-           alert("Your feedback has been submitted!"); // Notify user of success
-
-           renderFeedback();
-           // Refresh the feedback table
-           
-       }
-        catch (error) {
-            console.error("Error submitting feedback:", error); // Logging the errors to console
-            alert("Failed to submit feedback. Please try again later."); // Notify user of failure
-
-        }
-        // Reset the form fields
-
-       document.getElementById("feedbackForm").reset();
-        }
-
-// attach the submitFeedback function to the form
-
+// Attach the submitFeedback function to the form
 document.getElementById("feedbackForm").addEventListener("submit", (e) => {
-
-    e.preventDefault(); 
-    // prevening the default form submission behavior
-}
-
-submitFeedback();
-   // Triggerring the feedback submission function when user submits form
+    e.preventDefault();
+    submitFeedback();
 });
 
 // Fetch and display feedback data when the page loads
-
 renderFeedback();
-
-
-
-/*
-
-
-       status: "Submitted", // Default status for new feedback
-            lastUpdate: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
-        };
-
-        // Add the new feedback to the data array
-        feedbackData.push(newFeedback);
-
-        // Reset the form fields
-        document.getElementById("feedbackForm").reset();
-
-        // Show a confirmation message to the user
-        alert("Your feedback has been submitted!");
-
-        // Refresh the feedback table to include the new item
-        renderFeedback();
-    }
-
-    // Initialize the feedback table when the page loads
-    renderFeedback();
-
-
-
-
-
-
-
-
-*/
