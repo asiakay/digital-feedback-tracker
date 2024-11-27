@@ -31,7 +31,10 @@
         <!-- Feedback Submission Form -->
         <section class="feedback-form">
             <h2>Submit Your Feedback</h2>
-            <form id="feedbackForm">
+
+
+                <form id="feedbackForm" action="/submit-feedback" method="POST">
+                
                 <label for="category">Category:</label>
                 <select id="category" required>
                     <option value="">Select a category</option>
