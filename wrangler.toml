@@ -1,0 +1,10 @@
+name = "digital-feedback-tracker"
+type = "javascript"
+
+[site]
+bucket = "./public" # Adjust this to the directory containing your static files
+entry-point = "workers"
+
+[[routes]]
+pattern = "https://digital-feedback-tracker.pages.dev/api/*"
+script = "functions"
